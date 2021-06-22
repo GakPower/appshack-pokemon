@@ -1,3 +1,20 @@
 {
-  "extends": ["next", "next/core-web-vitals"]
+	"extends": [
+		"next",
+		"next/core-web-vitals"
+	],
+	"rules": {
+		"semi": [
+			2,
+			"always"
+		],
+		"jsx-quotes": [
+			2,
+			"prefer-single"
+		],
+		"indent": [
+			2,
+			"tab"
+		]
+	}
 }
