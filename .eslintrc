@@ -15,6 +15,12 @@
 		"indent": [
 			2,
 			"tab"
+		],
+		"import/no-anonymous-default-export": [
+			2,
+			{
+				"allowArrowFunction": true
+			}
 		]
 	}
 }
