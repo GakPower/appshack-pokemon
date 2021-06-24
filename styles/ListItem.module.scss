@@ -1,0 +1,21 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: red;
+	width: 90%;
+	padding: 10px;
+	border-radius: 15px;
+
+	.picture {
+		width: 35%;
+		aspect-ratio: 1;
+	}
+
+	ul {
+		list-style: none;
+		li span {
+			font-weight: bold;
+		}
+	}
+}
