@@ -14,8 +14,10 @@
 
 	ul {
 		list-style: none;
-		li span {
-			font-weight: bold;
+
+		li strong {
+			font-size: 1.2rem;
+			text-transform: capitalize;
 		}
 	}
 }

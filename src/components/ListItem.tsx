@@ -12,7 +12,7 @@ export default function ListItem({ name, picture, abilities }: PropType) {
 		<div className={styles.container}>
 			<img className={styles.picture} src={picture} alt={`Pokemon named ${name}`} />
 			<ul>
-				<li>Name: <span>{name}</span></li>
+				<li><strong>{name}</strong></li>
 				{abilities.map(ability => <li key={`${name}_${ability}`}>{ability}</li>)}
 			</ul>
 		</div>
