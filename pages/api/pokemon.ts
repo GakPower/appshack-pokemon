@@ -5,7 +5,7 @@ const LINK_BASE = 'https://pokeapi.co/api/v2/pokemon';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const { pageNumber = 0 } = req.body;
-	const limit = 25;
+	const limit = 10;
 	const offset = limit * pageNumber;
 
 	if (req.method !== 'POST') {
@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const link = `${LINK_BASE}?limit=${limit}${offset ? `&offset=${offset}` : ''}`;
 
-	const { next, results } = (await axios.get(link)).data;
+	const { count, next, results } = (await axios.get(link)).data;
 
 	const pokemonArray = results.map(async (result: any) => {
 		const { abilities, sprites } = (await axios.get(result.url)).data;
@@ -26,5 +26,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		return { name: result.name, abilities: simplifiedAbilities, picture: sprites.other['official-artwork'].front_default };
 	});
 
-	return res.status(200).json({ next, results: await Promise.all(pokemonArray) });
+	return res.status(200).json({ count, next, results: await Promise.all(pokemonArray) });
 };
