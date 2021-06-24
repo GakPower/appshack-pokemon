@@ -6,3 +6,13 @@
 	gap: 10px;
 	width: 100%;
 }
+.pageDiv {
+	margin: 10px;
+	button {
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		width: 30px;
+		aspect-ratio: 1;
+	}
+}
