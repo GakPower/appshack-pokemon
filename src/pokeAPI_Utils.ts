@@ -1,16 +1,17 @@
 import axios from "axios";
 
-export const getPokemon = async (pageNumber?: number) => {
-	const { error, count, next, results } = (await axios.post('/api/pokemon', { pageNumber })).data;
+export const getAllPokemon = async () => {
+	const { error, ...data } = (await axios.get('/api/pokemon')).data;
 
 	if (error) return {};
 
-	if (!next) {
-		return { next: null, results };
-	}
+	return data;
+};
 
-	const url = new URL(next);
-	const nextLimit = url.searchParams.get('limit');
-	const nextOffset = url.searchParams.get('offset');
-	return { count, next: { limit: nextLimit, offset: nextOffset }, results };
+export const getPokemon = async (name: string) => {
+	const { error, ...data } = (await axios.get(`/api/pokemon/${name}`)).data;
+
+	if (error) return {};
+
+	return data;
 };
