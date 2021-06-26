@@ -3,24 +3,23 @@ import { useEffect, useState } from 'react';
 import Loading from './../src/components/Loading';
 import { useRouter } from 'next/dist/client/router';
 import ListItem from '../src/components/ListItem';
+import { FullPokemon } from '../src/types';
 
 export default function Pokemon() {
 	const router = useRouter();
 	const { name } = router.query;
-	const [pokemon, setPokemon] = useState<any>({});
+	const [pokemon, setPokemon] = useState<FullPokemon>();
 
 	useEffect(() => {
 		if (name) {
-			getFullPokemon(name as string).then((res: any) => {
-				console.log(res);
-
+			getFullPokemon(name as string).then((res: FullPokemon) => {
 				setPokemon(res);
 			});
 		}
 	}, [name]);
 	return (
 		<>
-			{pokemon.name ? <ListItem data={pokemon} /> : <Loading />}
+			{pokemon ? <ListItem data={pokemon} /> : <Loading />}
 		</>
 	);
 }
