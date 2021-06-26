@@ -1,36 +1,35 @@
 import axios from "axios";
+import { BasicPokemon, FullPokemon } from "./types";
 
-export const getAllPokemon = async () => {
-	const { error, ...data } = (await axios.get('/api/pokemon')).data;
+type StatType = { stat: { name: string }, base_stat: number };
+type AbilitiesType = { ability: { name: string } }[];
 
-	if (error) return {};
+export const getAllPokemon = async (): Promise<{ name: string }[]> => {
+	const { error, results } = (await axios.get('/api/pokemon')).data;
 
-	return data;
+	if (error) return [];
+
+	return results;
 };
 
-export const getBasicPokemon = async (name: string) => {
-	const { error, ...data } = (await axios.get(`/api/pokemon/${name}`)).data;
-
-	if (error) return {};
+export const getBasicPokemon = async (name: string): Promise<BasicPokemon> => {
+	const data = (await axios.get(`/api/pokemon/${name}`)).data;
 
 	const abilities = getSimplifiedAbilities(data.abilities);
 	const picture = data.sprites.other['official-artwork'].front_default;
 	return { name, abilities, picture };
 };
 
-export const getFullPokemon = async (name: string) => {
-	const { error, ...data } = (await axios.get(`/api/pokemon/${name}`)).data;
-
-	if (error) return {};
+export const getFullPokemon = async (name: string): Promise<FullPokemon> => {
+	const { sprites, weight, species, ...data } = (await axios.get(`/api/pokemon/${name}`)).data;
 
 	const abilities = getSimplifiedAbilities(data.abilities);
-	const picture = data.sprites.other['official-artwork'].front_default;
+	const picture = sprites.other['official-artwork'].front_default;
 	let stats = {};
-	data.stats.forEach((stat: any) => (stats = { ...stats, [stat.stat.name]: stat.base_stat }));
-
-	return { name, abilities, picture, weight: data.weight, species: data.species.name, stats };
+	data.stats.forEach((stat: StatType) => (stats = { ...stats, [stat.stat.name]: stat.base_stat }));
+	return { name, abilities, picture, weight, stats, species: species.name };
 };
 
-const getSimplifiedAbilities = (abilities: any[]) => {
-	return abilities.map((ability: any) => ability.ability.name);
+const getSimplifiedAbilities = (abilities: AbilitiesType) => {
+	return abilities.map((ability) => ability.ability.name);
 };
