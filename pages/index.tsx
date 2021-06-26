@@ -1,4 +1,4 @@
-import { getAllPokemon, getPokemon } from '../src/pokeAPI_Utils';
+import { getAllPokemon, getBasicPokemon } from '../src/pokeAPI_Utils';
 import styles from '../styles/Home.module.scss';
 import ListItem from './../src/components/ListItem';
 import { useEffect, useState } from 'react';
@@ -39,12 +39,10 @@ export default function Home() {
 		const newPage = pokemonArray
 			.slice(offset, offset + PAGE_SIZE)
 			.map(async (pokemon: any) => {
-				return await getPokemon(pokemon.name);
+				return await getBasicPokemon(pokemon.name);
 			});
 
 		Promise.all(newPage).then((res: any) => {
-			console.log(res);
-
 			setCurrentPage(res);
 			setLoading(false);
 		});
@@ -63,12 +61,10 @@ export default function Home() {
 		const newPage = temp
 			.slice(offset, offset + PAGE_SIZE)
 			.map(async (pokemon: any) => {
-				return await getPokemon(pokemon.name);
+				return await getBasicPokemon(pokemon.name);
 			});
 
 		Promise.all(newPage).then((res: any) => {
-			console.log(sortingOption);
-
 			setCurrentPage(res);
 			setLoading(false);
 		});
