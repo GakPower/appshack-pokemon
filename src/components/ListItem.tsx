@@ -1,18 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from '../../styles/ListItem.module.scss';
-import Link from 'next/link';
 import { useRouter } from 'next/dist/client/router';
+import { FlexiblePokemon } from '../types';
 
-type DataType = {
-	name: string,
-	picture: string,
-	abilities: string[],
-	stats?: { [spec: string]: number },
-	weight?: number,
-	species?: number
-}
-
-export default function ListItem({ data, clickable }: { data: DataType, clickable?: boolean }) {
+export default function ListItem({ data, clickable }: { data: FlexiblePokemon, clickable?: boolean }) {
 	const router = useRouter();
 	const { name, picture, abilities, stats, weight, species } = data;
 	return (
@@ -30,7 +21,6 @@ export default function ListItem({ data, clickable }: { data: DataType, clickabl
 				)}
 				{weight && <li><strong>Weight:</strong> {weight}</li>}
 				{species && <li><strong>Species:</strong> {species}</li>}
-
 			</ul>
 		</div>
 	);
