@@ -12,5 +12,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const { results } = (await axios.get(link)).data;
 
-	return res.status(200).json({ count: results.length, results });
+	return res.status(200).json({ results });
 };
