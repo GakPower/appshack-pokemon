@@ -13,8 +13,22 @@ export const getBasicPokemon = async (name: string) => {
 
 	if (error) return {};
 
-	const simplifiedAbilities = getSimplifiedAbilities(data.abilities);
-	return { name, abilities: simplifiedAbilities, picture: data.sprites.other['official-artwork'].front_default };
+	const abilities = getSimplifiedAbilities(data.abilities);
+	const picture = data.sprites.other['official-artwork'].front_default;
+	return { name, abilities, picture };
+};
+
+export const getFullPokemon = async (name: string) => {
+	const { error, ...data } = (await axios.get(`/api/pokemon/${name}`)).data;
+
+	if (error) return {};
+
+	const abilities = getSimplifiedAbilities(data.abilities);
+	const picture = data.sprites.other['official-artwork'].front_default;
+	let stats = {};
+	data.stats.forEach((stat: any) => (stats = { ...stats, [stat.stat.name]: stat.base_stat }));
+
+	return { name, abilities, picture, weight: data.weight, species: data.species.name, stats };
 };
 
 const getSimplifiedAbilities = (abilities: any[]) => {
