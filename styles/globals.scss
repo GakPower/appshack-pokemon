@@ -1,3 +1,7 @@
+:root {
+	--primaryColor: #fff1c8;
+}
+
 html,
 body {
 	padding: 0;
@@ -7,8 +11,11 @@ body {
 }
 
 body>div>main {
-	width: 100vw;
-	height: 100vh;
+	background-color: var(--primaryColor);
+
+	display: grid;
+	place-items: center;
+	min-height: 100vh;
 }
 
 * {

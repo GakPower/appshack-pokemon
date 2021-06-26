@@ -1,0 +1,28 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	background-color: rgb(255, 193, 112);
+	width: 90%;
+	max-width: 500px;
+	padding: 10px;
+	border-radius: 15px;
+
+	&.clickable {
+		cursor: pointer;
+	}
+
+	.picture {
+		width: 35%;
+		aspect-ratio: 1;
+	}
+
+	ul {
+		list-style: none;
+
+		li span {
+			font-size: 1.3rem;
+			text-transform: capitalize;
+		}
+	}
+}
