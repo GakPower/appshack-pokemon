@@ -75,7 +75,7 @@ export default function Home() {
 			<div className={styles.sortingOptions}><button onClick={() => setSortingOption(oldState => !oldState)}>Sort Alphabetically</button>{sortingOption ? 'DEC' : 'ASC'}</div>
 			{!loading ? (
 				<div className={styles.list}>
-					{currentPage.map((pokemon: any) => (<ListItem key={pokemon.name} name={pokemon.name} picture={pokemon.picture} abilities={pokemon.abilities} />))}
+					{currentPage.map((pokemon: any) => (<ListItem key={pokemon.name} data={pokemon} clickable />))}
 				</div>
 			) : <Loading />}
 
