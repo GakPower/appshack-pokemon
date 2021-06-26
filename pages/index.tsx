@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Loading from './../src/components/Loading';
 
 const PAGE_SIZE = 10;
+let offset = 0;
 let pokemonArray: any[] = [];
 
 export default function Home() {
@@ -12,18 +13,29 @@ export default function Home() {
 	const [currentPageNumber, setCurrentPageNumber] = useState(-1);
 	const [totalPages, setTotalPages] = useState(0);
 	const [loading, setLoading] = useState(false);
+	const [sortingOption, setSortingOption] = useState(false);
 
 	useEffect(() => {
 		getAllPokemon().then((data) => {
-			pokemonArray = data?.results;
-			setTotalPages(Math.ceil(data?.count / PAGE_SIZE));
-			setCurrentPageNumber(0);
+			if (data.results) {
+				const sortedData = (data.results.sort((a: any, b: any) => {
+					if (sortingOption) {
+						return a.name.localeCompare(b.name);
+					} else {
+						return b.name.localeCompare(a.name);
+					}
+				}));
+				pokemonArray = sortedData;
+				setTotalPages(Math.ceil(data?.count / PAGE_SIZE));
+				setCurrentPageNumber(0);
+			}
 		});
 	}, []);
 
 	useEffect(() => {
 		setLoading(true);
-		const offset = PAGE_SIZE * currentPageNumber;
+
+		offset = PAGE_SIZE * currentPageNumber;
 		const newPage = pokemonArray
 			.slice(offset, offset + PAGE_SIZE)
 			.map(async (pokemon: any) => {
@@ -31,13 +43,40 @@ export default function Home() {
 			});
 
 		Promise.all(newPage).then((res: any) => {
+			console.log(res);
+
 			setCurrentPage(res);
 			setLoading(false);
 		});
 	}, [currentPageNumber]);
 
+	useEffect(() => {
+		setLoading(true);
+		const temp = pokemonArray.sort((a: any, b: any) => {
+			if (sortingOption) {
+				return a.name.localeCompare(b.name);
+			} else {
+				return b.name.localeCompare(a.name);
+			}
+		});
+		pokemonArray = temp;
+		const newPage = temp
+			.slice(offset, offset + PAGE_SIZE)
+			.map(async (pokemon: any) => {
+				return await getPokemon(pokemon.name);
+			});
+
+		Promise.all(newPage).then((res: any) => {
+			console.log(sortingOption);
+
+			setCurrentPage(res);
+			setLoading(false);
+		});
+	}, [sortingOption]);
+
 	return (
 		<>
+			<div className={styles.sortingOptions}><button onClick={() => setSortingOption(oldState => !oldState)}>Sort Alphabetically</button>{sortingOption ? 'DEC' : 'ASC'}</div>
 			{!loading ? (
 				<div className={styles.list}>
 					{currentPage.map((pokemon: any) => (<ListItem key={pokemon.name} name={pokemon.name} picture={pokemon.picture} abilities={pokemon.abilities} />))}
