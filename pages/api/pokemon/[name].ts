@@ -15,8 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 	const link = `${LINK_BASE}/${name}`;
 
-	const { abilities, sprites } = (await axios.get(link)).data;
-	const simplifiedAbilities = abilities.map((ability: any) => ability.ability.name);
+	const data = (await axios.get(link)).data;
 
-	return res.status(200).json({ name, abilities: simplifiedAbilities, picture: sprites.other['official-artwork'].front_default });
+	return res.status(200).json(data);
 };
