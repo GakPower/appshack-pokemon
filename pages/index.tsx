@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Loading from './../src/components/Loading';
 import { BasicPokemon } from '../src/types';
 import Sorter from '../src/components/Sorter';
+import PageSelectionBar from '../src/components/PageSelectionBar';
 
 const PAGE_SIZE = 10;
 let offset = 0;
@@ -70,23 +71,15 @@ export default function Home() {
 
 	return (
 		<>
-			{loading ? (
-				<Loading />
-			) : <>
-				<Sorter onChange={(isASC) => setSortingOption(isASC)} loading={!pokemonArray} />
-				<div className={styles.list}>
-					{currentPage.map((pokemon: any) => (<ListItem key={pokemon.name} data={pokemon} clickable />))}
-				</div>
-			</>
-			}
-
-			<div className={styles.pageDiv}>
-				{
-					Array.from({ length: totalPages }, (_, k) => (
-						<button key={k} className={currentPageNumber === k ? styles.selected : ''} onClick={() => setCurrentPageNumber(k)}>{k}</button>
-					))
-				}
-			</div>
+			{loading ? <Loading /> : (
+				<>
+					<Sorter value={sortingOption} onChange={(isASC) => setSortingOption(isASC)} loading={!pokemonArray} />
+					<div className={styles.list}>
+						{currentPage.map((pokemon) => (<ListItem key={pokemon.name} data={pokemon} clickable />))}
+					</div>
+					<PageSelectionBar totalPages={totalPages} pageNumber={currentPageNumber} onChange={(pageNumber) => setCurrentPageNumber(pageNumber)} />
+				</>
+			)}
 		</>
 	);
 }
