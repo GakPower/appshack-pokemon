@@ -1,5 +1,23 @@
+@function hexToRGB($hex) {
+	@return red($hex),
+	green($hex),
+	blue($hex);
+}
+
+@mixin getColors($map) {
+	@each $key, $value in $map {
+		#{'--#{$key}'}: $value;
+		#{'--#{$key}-rgb'}: hexToRGB($value);
+	}
+}
+
+$themeColors: (
+	"primaryColor": #fff1c8,
+	"secondaryColor": #ff9100,
+);
+
 :root {
-	--primaryColor: #fff1c8;
+	@include getColors($themeColors);
 }
 
 html,
