@@ -1,0 +1,26 @@
+.container {
+	margin: 10px;
+	display: flex;
+	button {
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		width: 35px;
+		aspect-ratio: 1;
+		display: grid;
+		place-items: center;
+
+		border: 1px solid var(--secondaryColor);
+
+		&.selected {
+			background-color: var(--accentColor);
+		}
+
+		&.prev {
+			transform: rotate(90deg);
+		}
+		&.next {
+			transform: rotate(-90deg);
+		}
+	}
+}
