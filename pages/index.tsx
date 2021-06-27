@@ -4,6 +4,7 @@ import ListItem from './../src/components/ListItem';
 import { useEffect, useState } from 'react';
 import Loading from './../src/components/Loading';
 import { BasicPokemon } from '../src/types';
+import Sorter from '../src/components/Sorter';
 
 const PAGE_SIZE = 10;
 let offset = 0;
@@ -14,7 +15,7 @@ export default function Home() {
 	const [currentPageNumber, setCurrentPageNumber] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
 	const [loading, setLoading] = useState(false);
-	const [sortingOption, setSortingOption] = useState(false);
+	const [sortingOption, setSortingOption] = useState(true);
 
 	useEffect(() => {
 		getAllPokemon().then((data) => {
@@ -22,7 +23,7 @@ export default function Home() {
 				setLoading(true);
 
 				pokemonArray = data;
-				pokemonArray = getSortedPokemon(false);
+				pokemonArray = getSortedPokemon(true);
 				setTotalPages(Math.ceil(data.length / PAGE_SIZE));
 				updateCurrentPage();
 			}
@@ -72,7 +73,7 @@ export default function Home() {
 			{loading ? (
 				<Loading />
 			) : <>
-				<div className={styles.sortingOptions}><button onClick={() => setSortingOption(oldState => !oldState)}>Sort Alphabetically</button>{sortingOption ? 'DEC' : 'ASC'}</div>
+				<Sorter onChange={(isASC) => setSortingOption(isASC)} loading={!pokemonArray} />
 				<div className={styles.list}>
 					{currentPage.map((pokemon: any) => (<ListItem key={pokemon.name} data={pokemon} clickable />))}
 				</div>
