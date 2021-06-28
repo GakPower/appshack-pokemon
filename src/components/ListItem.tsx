@@ -8,20 +8,22 @@ export default function ListItem({ data, clickable }: { data: FlexiblePokemon, c
 	const { name, picture, abilities, stats, weight, species } = data;
 	return (
 		<div className={`${styles.container} ${clickable && styles.clickable}`} onClick={() => clickable && router.push(`/${name}`)}>
-			<img className={styles.picture} src={picture} alt={`Pokemon named ${name}`} />
-			<ul>
-				<li><span><strong>{name}</strong></span></li>
-				<li><strong>Abilities:</strong></li>
-				{abilities.map(ability => <li key={`${name}_${ability}`}>{ability}</li>)}
+			<div>
+				<img src={picture} alt={`Pokemon named ${name}`} />
+				<h1>{name}</h1>
+				{species}
+			</div>
+			<div>
+				<strong>Abilities</strong>
+				{abilities.map(ability => <span key={`${name}_${ability}`}>{ability}</span>)}
 				{stats && (
 					<>
-						<li><strong>Specs:</strong></li>
-						{Object.entries(stats).map((spec => <li key={`${name}_${spec[0]}`}>{`${spec[0]} => ${spec[1]}`}</li>))}
+						<strong>Details</strong>
+						{Object.entries(stats).map((spec => <div key={`${name}_${spec[0]}`}>{spec[0]}:<span>{spec[1]}</span></div>))}
 					</>
 				)}
-				{weight && <li><strong>Weight:</strong> {weight}</li>}
-				{species && <li><strong>Species:</strong> {species}</li>}
-			</ul>
+				{weight && <div key={`${name}_weight`}>weight:<span>{weight}</span></div>}
+			</div>
 		</div>
 	);
 }
