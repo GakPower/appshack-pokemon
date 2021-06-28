@@ -9,3 +9,8 @@ This is a front-end application that makes use of [POKÉ API](https://pokeapi.co
 -   TypeScript
 -   SASS
 -   [POKÉ API](https://pokeapi.co/)
+-   And many more...
+
+## Live Link
+
+You can visit [this](https://appshack-pokemon.vercel.app/) to have a look at the live version deployed in [Vercel](https://vercel.com/)
