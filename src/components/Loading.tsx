@@ -1,10 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from 'next/image';
 import styles from '../../styles/Loading.module.scss';
 
 export default function Loading() {
 	return (
 		<div className={styles.container}>
-			<img src={'/favicon.ico'} alt='Loading icon'/>
+			<Image src={'/favicon.ico'} alt='Loading icon' width={70} height={70} />
 		</div>
 	);
 }
