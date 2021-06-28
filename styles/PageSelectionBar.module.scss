@@ -13,7 +13,8 @@
 		border: 1px solid var(--secondaryColor);
 
 		&.selected {
-			background-color: var(--accentColor);
+			background-color: rgba(var(--accentColor-rgb), 1);
+			color: whitesmoke
 		}
 
 		&.prev {
