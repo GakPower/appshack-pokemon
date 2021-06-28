@@ -4,6 +4,7 @@ import Loading from './../src/components/Loading';
 import { useRouter } from 'next/dist/client/router';
 import ListItem from '../src/components/ListItem';
 import { FullPokemon } from '../src/types';
+import Head from 'next/head';
 
 export default function Pokemon() {
 	const router = useRouter();
@@ -17,8 +18,15 @@ export default function Pokemon() {
 			});
 		}
 	}, [name]);
+
+	const getCapitalizedString = (str: string) => {
+		return str.replace(/^\w/, (c) => c.toUpperCase());
+	};
 	return (
 		<>
+			<Head>
+				<title>Pokemon: {getCapitalizedString(name as string)}</title>
+			</Head>
 			{pokemon ? <ListItem data={pokemon} /> : <Loading />}
 		</>
 	);
