@@ -11,9 +11,10 @@
 		place-items: center;
 
 		border: 1px solid var(--secondaryColor);
+		background-color: rgba(var(--secondaryColor-rgb), .1);
 
 		&.selected {
-			background-color: rgba(var(--accentColor-rgb), 1);
+			background-color: rgba(var(--accentColor-rgb), .7);
 			color: whitesmoke
 		}
 
