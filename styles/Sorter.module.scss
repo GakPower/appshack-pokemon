@@ -1,6 +1,8 @@
 .sorter {
 	position: fixed;
 	bottom: 60px;
+	left: 50%;
+	transform: translateX(-50%);
 	border: 2px solid rgba(var(--secondaryColor-rgb), .5);
 	background-color: var(--primaryColor);
 
