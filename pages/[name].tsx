@@ -25,7 +25,7 @@ export default function Pokemon() {
 	return (
 		<>
 			<Head>
-				<title>Pokemon: {getCapitalizedString(name as string)}</title>
+				{name && <title>Pokemon: {getCapitalizedString(name as string)}</title>}
 			</Head>
 			{pokemon ? <ListItem data={pokemon} /> : <Loading />}
 		</>
