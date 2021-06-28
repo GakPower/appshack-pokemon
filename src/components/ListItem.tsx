@@ -11,7 +11,7 @@ export default function ListItem({ data, clickable }: { data: FlexiblePokemon, c
 			<div>
 				<img src={picture} alt={`Pokemon named ${name}`} />
 				<h1>{name}</h1>
-				{species}
+				{stats && species}
 			</div>
 			<div>
 				<strong>Abilities</strong>
