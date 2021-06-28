@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
 import styles from '../../styles/ListItem.module.scss';
 import { useRouter } from 'next/dist/client/router';
 import { FlexiblePokemon } from '../types';
+import Image from 'next/image';
 
 export default function ListItem({ data, clickable }: { data: FlexiblePokemon, clickable?: boolean }) {
 	const router = useRouter();
@@ -9,7 +9,7 @@ export default function ListItem({ data, clickable }: { data: FlexiblePokemon, c
 	return (
 		<div className={`${styles.container} ${clickable && styles.clickable}`} onClick={() => clickable && router.push(`/${name}`)}>
 			<div>
-				<img src={picture} alt={`Pokemon named ${name}`} />
+				<Image src={picture} alt={`Pokemon named ${name}`} width={200} height={200} />
 				<h1>{name}</h1>
 				{stats && species}
 			</div>
